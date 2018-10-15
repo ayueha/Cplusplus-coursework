@@ -5,13 +5,16 @@
 using namespace std;
 string menu();
 int main() {
-	int flg=1;
-	
+	//init pointer
+	int *flg;
+	int num = 1;
+	flg = &num;
+
 	cout << "This program create matrix. \n setup a matrix \n draw the data from matrix" << endl;
-	while (flg==1) {
-		flg = stoi(menu());
+	while (*flg==1) {
+		*flg = stoi(menu());
 		
-		if (flg == 0) {
+		if (*flg == 0) {
 			break;
 		}
 		else {

@@ -6,9 +6,9 @@ class Matrix
 {
 public:
 	Matrix();
-	Matrix(int startflg);
+	Matrix(int *);
 	~Matrix();
-	double ** Create(const int, const int);
+	double ** Create(int,int);
 	void setLines(int);
 	int getLines();
 	void setRows(int);
@@ -17,17 +17,20 @@ public:
 	void setValueCol(int, int);
 	void getValueCol(int, int);
 	bool getMatrixInfo();
-	int getMatrixMenu(string);
+	void getMatrixMenu(string, int *);
 	void printMatrix();
 	double createRandom();
 	void setSerchIndexLine(int);
 	int getSerchIndexLine();
 	void setSerchIndexRow(int);
 	int getSerchIndexRow();
+	bool getValueinfo(string);
 private:
 	double **ptrMatrix;
-	int rows, serchIndexLine;
-	int lines, serchIndexRow;
-
+	int rows;
+	int serchIndexLine;
+	int lines;
+	int serchIndexRow;
+	int flg;
 };
 
