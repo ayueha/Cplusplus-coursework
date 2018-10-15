@@ -1,0 +1,5 @@
+﻿P:\Microsoft Visual Studio\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Semester-Task.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  pch.cpp
+  Semester-Task.cpp
+p:\cplusplus\semester-task\semester-task\semester-task.cpp(16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Semester-Task.vcxproj -> P:\Cplusplus\Semester-Task\Debug\Semester-Task4.exe
