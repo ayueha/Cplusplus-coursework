@@ -1,4 +1,3 @@
 ﻿  SemesterTask6.cpp
-p:\cplusplus\semester-task\semester-task6\semestertask6.cpp(13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-p:\cplusplus\semester-task\semester-task6\semestertask6.cpp(28): error C2440: 'initializing': cannot convert from 'initializer list' to 'double **'
-  p:\cplusplus\semester-task\semester-task6\semestertask6.cpp(28): note: The initializer contains too many elements
+p:\cplusplus\semester-task\semester-task6\semestertask6.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Semester-Task6.vcxproj -> P:\Cplusplus\Semester-Task\Debug\Semester-Task6.exe

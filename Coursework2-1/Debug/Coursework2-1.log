@@ -1,1 +1,6 @@
-﻿
+﻿  Matrix.cpp
+p:\cplusplus\semester-task\coursework2-1\matrix.cpp(188): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  main.cpp
+  Generating Code...
+p:\cplusplus\semester-task\coursework2-1\matrix.cpp(169): warning C4715: 'Matrix::getMatrixMenu': not all control paths return a value
+  Coursework2-1.vcxproj -> P:\Cplusplus\Semester-Task\Debug\Coursework2-1.exe

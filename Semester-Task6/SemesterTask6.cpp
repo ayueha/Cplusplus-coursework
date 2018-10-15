@@ -14,20 +14,12 @@ void Destroy(double **, int);
 int main() {
 	srand(time(0));
 	int matrix = 4;
-	//static double **p_p_x; //= new double*[maxtrixNumber];
-	
-	//cout << ** p_p_x << endl;
-
 	double **p_p_x = Create(matrix);
-	cout << &p_p_x << endl;
 	Fill(p_p_x, matrix);
 	Print(p_p_x, matrix);
 	Destroy(p_p_x, matrix);
 
    //Multiplie matrix
-	double **pMatrix1;
-	double **ppPMatrix2;
-	double **p = AddMatrices(pMatrix1, ppPMatrix2, matrix);
 
 
 
