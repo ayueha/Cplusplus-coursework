@@ -104,6 +104,7 @@ int Matrix::getSerchIndexRow()
 
 void Matrix::Fill(double **ppMatrix, int line, int row) //create matrix -- creattion process  --
 {
+	srand(time(0));
 	for (int i = 0; i < line; i++) {	
 		if (row > 0) {
 			for (int j = 0; j < row; j++) {
@@ -117,13 +118,15 @@ void Matrix::Fill(double **ppMatrix, int line, int row) //create matrix -- creat
 	}
 }
 
-void Matrix::setValueCol(int line , int row) {//set certain number of combination in matrix;
+void Matrix::setValueCol() {//set certain number of combination in matrix;
 	string tmp;
-	cout << "Please Enter double :";
+	cout << "Please Enter double or integer:";
 	cin >> tmp;
-	if (getValueinfo(tmp)) {
+	setValueinfo(tmp);
 
-	}
+	cout << "Previous Number of " << getSerchIndexLine() << " and Row : " << getSerchIndexRow() << " is " << this->ptrMatrix[getSerchIndexLine()][getSerchIndexRow()] <<endl;
+	this->ptrMatrix[getSerchIndexLine()][getSerchIndexRow()] = getValueInfo();
+	cout << "Current Number of " << getSerchIndexLine() << " and Row : " << getSerchIndexRow() << " is " << this->ptrMatrix[getSerchIndexLine()][getSerchIndexRow()] << endl;
 
 }
 
@@ -153,8 +156,19 @@ void Matrix::getMatrixMenu(string flg, int *startflg)
 
 		break;
 		case 1:
-
-			//setValueCol(int line, int row)
+			cout << "Enter search index of Line number" << endl;
+			cin >> i;
+			setSerchIndexLine(stoi(i));
+			if (this->rows > 0) {
+				cout << "Enter search inndex of " << endl;
+				cin >> j;
+				setSerchIndexRow(stoi(j));
+			}
+			else {
+				setSerchIndexRow(stoi("0"));
+			}
+			
+			setValueCol();
 			*startflg = 1;
 			break;
 		case 2:
@@ -197,15 +211,18 @@ void Matrix::printMatrix()
 
 double Matrix::createRandom()
 {
-	srand(time(0));
 	int range = rand() % 10 + 2;
 	double randDouble = ((double)rand() / ((double)RAND_MAX + 1)) * range;
 	return randDouble;
 }
 
 
-bool Matrix::getValueinfo(string)
+void Matrix::setValueinfo(string tmp)
 {
-	
-	return false;
+	this->setdouble = stod(tmp);
+}
+
+double Matrix::getValueInfo()
+{
+	return this->setdouble;
 }

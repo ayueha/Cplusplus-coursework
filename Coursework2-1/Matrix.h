@@ -14,7 +14,7 @@ public:
 	void setRows(int);
 	int getRows();
 	void Fill(double**, int ,int);
-	void setValueCol(int, int);
+	void setValueCol();
 	void getValueCol(int, int);
 	bool getMatrixInfo();
 	void getMatrixMenu(string, int *);
@@ -24,7 +24,8 @@ public:
 	int getSerchIndexLine();
 	void setSerchIndexRow(int);
 	int getSerchIndexRow();
-	bool getValueinfo(string);
+	void setValueinfo(string);
+	double getValueInfo();
 private:
 	double **ptrMatrix;
 	int rows;
@@ -32,5 +33,6 @@ private:
 	int lines;
 	int serchIndexRow;
 	int flg;
+	double setdouble;
 };
 
