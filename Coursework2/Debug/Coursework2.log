@@ -1,0 +1,13 @@
+﻿  Matrix.cpp
+p:\cplusplus\semester-task\coursework2\matrix.cpp(39): error C2511: 'void Matrix::Fill(double **,int,int)': overloaded member function not found in 'Matrix'
+  p:\cplusplus\semester-task\coursework2\matrix.h(8): note: see declaration of 'Matrix'
+p:\cplusplus\semester-task\coursework2\matrix.cpp(40): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+p:\cplusplus\semester-task\coursework2\matrix.cpp(44): error C2352: 'Matrix::createRandom': illegal call of non-static member function
+  p:\cplusplus\semester-task\coursework2\matrix.h(22): note: see declaration of 'Matrix::createRandom'
+p:\cplusplus\semester-task\coursework2\matrix.cpp(48): error C2352: 'Matrix::createRandom': illegal call of non-static member function
+  p:\cplusplus\semester-task\coursework2\matrix.h(22): note: see declaration of 'Matrix::createRandom'
+p:\cplusplus\semester-task\coursework2\matrix.cpp(69): error C2143: syntax error: missing ')' before ';'
+p:\cplusplus\semester-task\coursework2\matrix.cpp(69): error C2660: 'Matrix::Create': function does not take 0 arguments
+  p:\cplusplus\semester-task\coursework2\matrix.cpp(15): note: see declaration of 'Matrix::Create'
+p:\cplusplus\semester-task\coursework2\matrix.cpp(71): error C2143: syntax error: missing ';' before '}'
+p:\cplusplus\semester-task\coursework2\matrix.cpp(71): error C3867: 'Matrix::Fill': non-standard syntax; use '&' to create a pointer to member

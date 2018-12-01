@@ -9,6 +9,8 @@ class Matrix
 public:
 	Matrix();
 	Matrix(int *);
+	Matrix(int,int);
+	Matrix(const Matrix& mtr);
 	Matrix(double);
 	~Matrix();
 	double ** Create(int,int);
@@ -30,11 +32,6 @@ public:
 	int getSerchIndexRow();
 	void setValueinfo(string);
 	double getValueInfo();
-	double addision(double, double);
-	double substraction(double, double);
-	double comparison(double, double);
-	//void someCalc(double, double);
-	void factorial(double, double);
 	void assigment(string);
 	void setCalcValueA(double);
 	void setCalcValueB(double);
@@ -48,14 +45,107 @@ public:
 	void setTransposedMatrix(int, int,double);
 	
 	//ƒNƒ‰ƒX‚ÌOverload
-	double operator+(const Matrix& val) {
-		return this->tmpCalcVal + val.tmpCalcVal;
+	Matrix operator+(const Matrix& val)const {
+		Matrix mtr(val.lines, val.rows);
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				mtr.ptrMatrix[i][j] = this->ptrMatrix[i][j] + val.ptrMatrix[i][j];
+			}
+		}
+		return mtr;
 	}
-	double operator-(const Matrix& val) {
-		return this->tmpCalcVal - val.tmpCalcVal;
+	Matrix operator-(const Matrix& val) {
+		Matrix mtr(val.lines, val.rows);
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				mtr.ptrMatrix[i][j] = this->ptrMatrix[i][j] - val.ptrMatrix[i][j];
+			}
+		}
+		return mtr;
 	}
-	double operator*(const Matrix& val) {
-		return this->tmpCalcVal * val.tmpCalcVal;
+	Matrix operator*(const Matrix& val) {
+		Matrix mtr(val.lines, val.rows);
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				mtr.ptrMatrix[i][j] = this->ptrMatrix[i][j] * val.ptrMatrix[i][j];
+			}
+		}
+		return mtr;
+	}
+
+	Matrix operator=(const Matrix& val) {
+		Matrix mtr(val.lines, val.rows);
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				mtr.ptrMatrix[i][j] = this->ptrMatrix[i][j];
+			}
+		}
+		return mtr;
+	}
+
+	Matrix operator+=(const Matrix& val) {
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				this->ptrMatrix[i][j] = this->ptrMatrix[i][j] + val.ptrMatrix[i][j];
+			}
+		}
+		return *this;
+	}
+
+	Matrix operator-=(const Matrix& val) {
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				this->ptrMatrix[i][j] = this->ptrMatrix[i][j] - val.ptrMatrix[i][j];
+			}
+		}
+		return *this;
+	}
+
+	Matrix operator*=(const Matrix& val) {
+		for (int i = 0; i < val.lines; i++) {
+			for (int j = 0; j < val.rows; j++) {
+				this->ptrMatrix[i][j] = this->ptrMatrix[i][j] * val.ptrMatrix[i][j];
+			}
+		}
+		return *this;
+	}
+
+	bool operator ==(const Matrix& val)
+	{
+		return this->calcValueA == val.calcValueA;
+	}
+
+	double operator^(const Matrix& val) const {
+		return pow(this->calcValueA, val.calcValueA);
+	}	
+
+	Matrix operator!() {
+		Matrix mtr(this->rows, this->lines);
+		for (int i = 0; i < this->rows; i++)
+			for (int j = 0; j < this->lines; j++)
+				mtr.ptrMatrix[j][i] = this->ptrMatrix[i][j];
+		return mtr;
+	}
+
+	friend std::ostream& operator<< (std::ostream &os, const Matrix &mtr) {
+		for (int i = 0; i < mtr.lines; i++) {
+			for (int j = 0; j < mtr.rows; j++) {
+				cout << mtr.ptrMatrix[i][j] << " ";
+			}
+			cout << "\n";
+		}
+		cout << "\n";
+		return cout;
+	}
+
+	friend std::istream& operator>> (std::istream &inpt, Matrix &val)
+	{
+		for (int i = 0; i < val.lines; ++i) {
+			for (int j = 0; j < val.rows; ++j)
+				if (!(inpt >> val.ptrMatrix[i][j])) return inpt;
+		}
+		return inpt;
+		return inpt;
 	}
 
 

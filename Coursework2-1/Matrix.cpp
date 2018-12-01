@@ -5,6 +5,7 @@
 #include <math.h>
 #include <algorithm>
 #include <cstdlib>
+#include <Windows.h>
 using namespace std;
 
 Matrix::Matrix()
@@ -52,12 +53,31 @@ Matrix::Matrix(int *startflg)
 	}
 }
 
-Matrix::Matrix(double value)
+Matrix::Matrix(int valA,int valB)
 {
-	this->tmpCalcVal = value;
+
+	this->ptrMatrix = Create(valA, valB);
+	Fill(this->ptrMatrix, valA, valB);
+	setLines(valA);
+	setRows(valB);
+}
+
+Matrix::Matrix(const Matrix & createdMtr) {
+	//copy infor before destractor
+	this->lines = createdMtr.lines;
+	this->rows= createdMtr.rows;
+	this->ptrMatrix=Create(this->lines,this->rows);
+	Fill(this->ptrMatrix, this->lines, this->rows);
+	for (int i = 0; i < lines; i++) {
+		for (int j = 0; j < rows; j++)
+			this->ptrMatrix[i][j] = createdMtr.ptrMatrix[i][j];
+	}
 
 }
 
+Matrix::Matrix(double value) {
+	this->calcValueA= value;
+}
 
 
 Matrix::~Matrix()
@@ -68,16 +88,7 @@ Matrix::~Matrix()
 	}
 	delete this->ptrMatrix;
 
-	if (transedMatrix != nullptr) {
-		for (int i = 0; i < this->rows; i++) {
-			this->transedMatrix[i];
 
-		}
-		delete this->transedMatrix;
-	}
-	
-	delete this->matrixValueA;
-	delete this->matrixValueB;
 
 }
 
@@ -90,10 +101,11 @@ double ** Matrix::Create(int line, int row) //create matrix
 		for (int i = 0; i < line; i++) {
 			arr[i] = new double[row];
 		}
-		//cout << &arr << endl;
 
 	return arr;
 }
+
+
 void Matrix::setLines(int value) { //create matrix --Line number
 	string num;
 	while (value < 1) {
@@ -165,19 +177,24 @@ int Matrix::getSerchIndexRow()
 
 void Matrix::Fill(double **ppMatrix, int line, int row) //create matrix -- creattion process  --
 {
-	srand(time(0));
+	
 	for (int i = 0; i < line; i++) {	
 		if (row > 0) {
 			for (int j = 0; j < row; j++) {
+				
 				ppMatrix[i][j] = createRandom();
 			}
 		}
 		else {
+			
 			ppMatrix[i][0] = createRandom();
 		}
 
 	}
 }
+
+
+
 
 void Matrix::setValueCol() {//set certain number of combination in matrix;
 	string tmp;
@@ -327,92 +344,66 @@ void Matrix::getMatrixMenu(string flg, int *startflg)
 				break;
 			case 4:
 				double result;
+				cout << "cerate two matrixies and calc them as a operator overloding" << endl;
+				Matrix mtrA(getLines(), getRows());
+				Matrix mtrB(getLines(), getRows());
+				cout << "===Values of Matrix A===" << endl;
+				cout << mtrA << endl;
+				cout << "===Values of Matrix B===" << endl;
+				cout << mtrB << endl;
+				Matrix mtrC = mtrA + mtrB;
+				cout << "Result of + operator overload is .... " << endl;
+				cout << mtrC << endl;
 
-			
-				cout << "Plase choose calculation menu " << endl;
-				cout << "Adittion Enter                               [1]" << endl;
-				cout << "Substraction Enter                           [2]" << endl;
-				cout << "Assignment Enter                             [3]" << endl;
-				cout << "Comparison Enter                             [4]" << endl;
-				cout << "addition/substraction/multiplication Enter   [5]" << endl;
-				cout << "Fatorial Enter                               [6]" << endl;
-				cout << "Transposing rows and columns                 [7]" << endl;
-				cin >> i;
-				string optionString;
-				switch (stoi(i)) {
-				case 1:
-					if (setCalcBase()){
-						cout << "Result of adittion is  : "<< addision(getCalcValueA(), getCalcValueB()) << endl;
-					}
-					break;
-				case 2:
-					if (setCalcBase()) {
-						cout << "Result of substraction is  : " << substraction(getCalcValueA(), getCalcValueB()) << endl;
-					}
-					break;
-				case 3:
-					if (setCalcBase()) {
-						cout << "Choose replacement option" << endl;
-						cout << "Replace valueA with valueB  Enter [A]" << endl;
-						cout << "Replace valueB with valueA  Enter [B]" << endl;
-						cin >> optionString;
-						assigment(optionString);
-					}
-					break;
-				case 4: 
-					if (setCalcBase()) {
-						result = comparison(getCalcValueA(), getCalcValueB());
-						if (result == getCalcValueA()) {
-							cout << "value A is bigger than value B" << endl;
-						}
-						else if (result == getCalcValueB()) {
-							cout << "value B is bigger than value A" << endl;
-						}
-					}
-					break;
-				case 5:
-					if (setCalcBase()) {
-						double resultCalcOverlaodAdd, resultCalcOverlaodSub, resultCalcOverlaodMulti;
-						cout << "Execute additions, substrcations and multiplications base on operator overloading" << endl;
-						Matrix objA(getCalcValueA());
-						Matrix objB(getCalcValueB());
-						resultCalcOverlaodAdd = objA + objB;
-						resultCalcOverlaodSub = objA - objB;
-						resultCalcOverlaodMulti = objA * objB;
+				Matrix mtrD = mtrA - mtrB;
+				cout << "Result of - operator overload is .... " << endl;
+				cout << mtrD << endl;
 
-						cout << "Adiddion : " << resultCalcOverlaodAdd << " Substraction : " << resultCalcOverlaodSub <<" Multiplication : " << resultCalcOverlaodMulti << endl;
+				Matrix mtrE = mtrA * mtrB;
+				cout << "Result of * operator overload is .... " << endl;
+				cout << mtrE << endl;
 
-					}
-					break;
-				case 6:
-					double k;
-					if (setCalcBase()){
-						cout << "Execute Factorial" << endl;
-						cout << "Please enter a integer of factorial" << endl;
-						cin >> k;
-						cout << "Value A  ";
-						factorial(k, getCalcValueA());
-						cout << "Value B  ";
-						factorial(k, getCalcValueB());
-					}
-					break;
-				case 7:
-					if (getRows() > 0) {
-						transedMatrix = Create(getRows(), getLines());
-						//Fill values as rows and columns transposisiotn.
-						transpositionMatrix(getLines(), getRows());
-						cout << "To see the result, Back to the main menu and choose [3]" << endl;
-					}
-					else {
-						cout << "This option can choose only when matrix has two dimensions" << endl;
-					}
-					break;
-				default:
-					cout << "Choose option number listed on the menu" << endl;
-						break;
-				}
+				mtrA += mtrB;
+				cout << "Result of += operator overload is .... " << endl;
 
+				cout << mtrA << endl;
+
+				cout << "Result of -= operator overload is .... " << endl;
+				mtrA -= mtrB;
+				cout << mtrA << endl;
+
+				mtrA *= mtrB;
+				cout << "Result of *= operator overload is .... " << endl;
+				cout << mtrA << endl;
+
+				cout << "Comparison" << endl;
+				Matrix cmpMtrA(createRandom());  //calcvalueA
+				cout << "Value of omparion double : " <<cmpMtrA.getCalcValueA() << endl;
+				Matrix cmpMtrB(createRandom());  //calcvalueB
+				cout << "Value of omparion double : " << cmpMtrB.getCalcValueA() << endl;
+
+				cout << ((cmpMtrA == cmpMtrB) ? "compMtrA value is larger than compMtrB" : "compMtrA value is lower than compMtrB") << endl;
+				double resultPower;
+				resultPower = cmpMtrA ^ cmpMtrB;
+
+				cout << "Result of power :" << resultPower << endl;
+				Matrix orginMtr(getLines(), getRows());
+				cout << "Original Matrix info" << endl;
+				cout << orginMtr;
+				cout << "Transposed Matrix info" << endl;
+				Matrix trnMtr = !orginMtr;
+				cout << trnMtr << endl;
+				
+
+				Matrix CinMatrix(getLines(), getRows());
+				cin >> CinMatrix;
+				cout << CinMatrix;
 				break;
+
+				//clear all objects
+
+
+
 		}
 		//clear values and pointers
 		clearValues();
@@ -438,25 +429,15 @@ void Matrix::printMatrix()
 		}
 	}
 
-	if (this->transedMatrix!=nullptr) {		
-			if (getRows() > 0 ) {
-				cout << "Transposed Matrix is ......" << endl;
-				for (int i = 0; i < getRows(); i++) {
-					for (int j = 0; j < getLines(); j++) {
-						cout << "Matrix No," << i << " and row " << j << ":  " << this->transedMatrix[i][j] << endl;
-					}
-				}
-			}
-			else {
-				cout << "No transposed Matrix has been generated ......." << endl;
-			}
-	}
 
 }
 
 
 double Matrix::createRandom()
 {
+	Sleep(1000);
+	unsigned int now = (unsigned int)time(0);
+	srand(now);
 	int range = rand() % 10 + 2;
 	double randDouble = ((double)rand() / ((double)RAND_MAX + 1)) * range;
 	return randDouble;
@@ -482,27 +463,7 @@ double Matrix::getValueInfo()
 }
 
 
-double Matrix::addision(double valueFomer , double valueLatter)
-{
-	return valueFomer+ valueLatter;
-}
 
-double Matrix::substraction(double valueFomer, double valueLatter)
-{
-	return valueFomer - valueLatter;
-}
-
-
-double Matrix::comparison(double valueFomer, double valueLatter)
-{
-	if (valueFomer > valueLatter) {
-		return valueFomer;
-	}
-	else {
-		return valueLatter;
-	}
-
-}
 
 bool Matrix::setCalcBase() {
 	try{
@@ -553,13 +514,6 @@ bool Matrix::setCalcBase() {
 }
 
 
-
-void Matrix::factorial(double fNumber, double value)
-{
-	cout << "Result of factorial is " << pow(value, fNumber) << endl;
-}
-
-
 void Matrix::assigment(string option) {
 	transform(option.begin(),option.end(),option.begin(),toupper);
 	
@@ -597,3 +551,4 @@ void Matrix::transpositionMatrix(int line, int row) {
 void Matrix::setTransposedMatrix(int line, int row, double value) {
 	this->transedMatrix[line][row] = value;
 }
+
